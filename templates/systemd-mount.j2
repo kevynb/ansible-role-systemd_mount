@@ -5,8 +5,9 @@ Description=Auto mount for {{ systemd_mount_item }}
 {# make unit dependent on network-online.target if network filesystem is being mounted #}
 {# dependency is also added for strings starting with '//' because it may indicate that CIFS/Samba is being used. #}
 {% if not (item.what is search("^(/[^/]|UUID=|LABEL=).*")) %}
-Requires=network-online.target
-After=network-online.target
+Requires=network-online.target {{ (item.unit | default({})).Requires | default([]) | join(' ') }}
+After=network-online.target {{ (item.unit | default({})).After | default([],true) | join(' ') }}
+Wants={{ (item.unit | default({})).Wants | default([],true) | join(' ') }}
 {% endif %}
 
 [{{ systemd_mount_suffix | capitalize }}]
@@ -21,3 +22,4 @@ Options={{ item.options | default(systemd_default_mount_options) }}{% if 'creden
 
 [Install]
 WantedBy=multi-user.target
+RequiredBy={{ (item.install | default({})).RequiredBy | default([]) | join(' ') }}
