@@ -37,4 +37,7 @@ systemd_mount_packages: |-
   {% if 'glusterfs' in mount_types %}
   {%   set _ = packages.extend(systemd_glusterfs_packages) %}
   {% endif %}
+  {% if 'davfs' in mount_types %}
+  {%   set _ = packages.extend(systemd_webdav_packages) %}
+  {% endif %}
   {{ packages }}

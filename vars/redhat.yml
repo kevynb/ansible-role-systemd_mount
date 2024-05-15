@@ -11,3 +11,6 @@ systemd_glusterfs_packages:
   - glusterfs
   - glusterfs-fuse
   - systemd-udev-252-*
+
+systemd_webdav_packages:
+  - davfs2

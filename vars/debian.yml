@@ -9,3 +9,6 @@ systemd_s3_packages:
 
 systemd_glusterfs_packages:
   - glusterfs-client
+
+systemd_webdav_packages:
+  - davfs2
